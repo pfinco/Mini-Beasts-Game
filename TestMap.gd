@@ -1,6 +1,26 @@
 extends Node2D
 
-var types = {
+var battlerTypes = {
+	"plain" : 0,
+	"plant" : 1,
+	"water" : 2,
+	"snow" : 3,
+	"sand" : 4,
+	"rock" : 5,
+	"fire" : 6,
+	"poison" : 7,
+	"electric" : 8,
+	"metal" : 9,
+	"magic" : 10,
+	"space" : 11,
+	"air" : 12,
+	"ground" : 13,
+	"light" : 14,
+	"ghost" : 15,
+	"sound" : 16
+}
+
+var terrainTypes = {
 	"plain" : 0,
 	"lush" : 1,
 	"water" : 2,

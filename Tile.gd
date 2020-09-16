@@ -4,9 +4,10 @@ signal tileConverted(type)
 
 var type
 var prevType
+var battler
 
 func _ready():
-	type =  TestMap.types.plain
+	type =  TestMap.terrainTypes.plain
 
 func convertTile(newType):
 	if type != newType:
