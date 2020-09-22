@@ -21,7 +21,7 @@ func create_map():
 		map[x].resize(height)
 		for y in range(height):
 			var newTile = tilePre.instance()
-			newTile.position = Vector2(x * 128, y * 128)
+			newTile.position = Vector2(x * TestMap.TILE_SIZE, y * TestMap.TILE_SIZE)
 			add_child(newTile)
 			map[x][y] = newTile
 			randomize()
@@ -34,6 +34,10 @@ func create_map():
 func create_battlers():
 	for i in range(numBattlers):
 		var newBattler = battlerPre.instance()
-		newBattler.position = Vector2(i * 256, i * 256)
-		map[i][i].battler = newBattler
+		
+		newBattler.map = map
+		newBattler.gridPosition = Vector2(i * 2, i * 2)
+		newBattler.position = Vector2(i * 2 * TestMap.TILE_SIZE, i * 2 * TestMap.TILE_SIZE)
+		
+		map[i * 2][i * 2].battler = newBattler
 		turnQueue.add_child(newBattler)

@@ -1,5 +1,7 @@
 extends Node2D
 
+const TILE_SIZE = 128
+
 var battlerTypes = {
 	"plain" : 0,
 	"plant" : 1,

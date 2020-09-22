@@ -22,20 +22,14 @@ func change_turn():
 func _input(event):
 	match phase:
 		phases.move:
-			if event.is_action_pressed("ui_accept") && activeBattler.selector.position != Vector2.ZERO:
-				activeBattler.position += activeBattler.selector.position
-				activeBattler.selector.position = Vector2.ZERO
-				activeBattler.selector.visible = false
+			if event.is_action_pressed("ui_accept") && activeBattler.destination_free():
+				activeBattler.move()
 				change_turn()
-			elif event.is_action_pressed("ui_left") && activeBattler.position.x + activeBattler.selector.position.x > 0:
-				activeBattler.selector.visible = true
-				activeBattler.selector.position.x -= 128
-			elif event.is_action_pressed("ui_right") && activeBattler.position.x + activeBattler.selector.position.x < (map.width - 1 )* 128:
-				activeBattler.selector.visible = true
-				activeBattler.selector.position.x += 128
-			elif event.is_action_pressed("ui_up") && activeBattler.position.y + activeBattler.selector.position.y > 0:
-				activeBattler.selector.visible = true
-				activeBattler.selector.position.y -= 128
-			elif event.is_action_pressed("ui_down") && activeBattler.position.y + activeBattler.selector.position.y < (map.height - 1)* 128:
-				activeBattler.selector.visible = true
-				activeBattler.selector.position.y += 128
+			elif event.is_action_pressed("ui_left") && activeBattler.selector.get_position().x > 0:
+				activeBattler.selector.move(Vector2(-1, 0))
+			elif event.is_action_pressed("ui_right") && activeBattler.selector.get_position().x < (map.width - 1 ) * 128:
+				activeBattler.selector.move(Vector2(1, 0))
+			elif event.is_action_pressed("ui_up") && activeBattler.selector.get_position().y > 0:
+				activeBattler.selector.move(Vector2(0, -1))
+			elif event.is_action_pressed("ui_down") && activeBattler.selector.get_position().y < (map.height - 1) * 128:
+				activeBattler.selector.move(Vector2(0, 1))
