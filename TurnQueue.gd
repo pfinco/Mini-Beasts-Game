@@ -7,7 +7,8 @@ var phase
 var phases = {
 	"none" : 0,
 	"move" : 1,
-	"attack" : 2
+	"attack" : 2,
+	"delete_me_test" : 3
 }
 
 func start(newMap):
