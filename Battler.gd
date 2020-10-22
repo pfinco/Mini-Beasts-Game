@@ -43,6 +43,8 @@ func target_at_destination():
 
 func attack_target():
 	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
+	selector.position = Vector2.ZERO
+	selector.visible = false
 	if map[destination.x][destination.y].battler != null:
 		map[destination.x][destination.y].battler.receive_attack(atk)
 		return true
