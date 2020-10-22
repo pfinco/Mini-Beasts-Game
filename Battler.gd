@@ -33,3 +33,26 @@ func destination_free():
 		return false
 	else:
 		 return true
+
+func target_at_destination():
+	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
+	if map[destination.x][destination.y].battler != null:
+		return true
+	else:
+		 return false
+
+func attack_target():
+	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
+	if map[destination.x][destination.y].battler != null:
+		map[destination.x][destination.y].battler.receive_attack(atk)
+		return true
+	else:
+		 return false
+
+func receive_attack(damage):
+	hp -= damage
+	if (hp <= 0):
+		die()
+
+func die():
+	visible = false
