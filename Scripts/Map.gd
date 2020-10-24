@@ -4,9 +4,9 @@ export var width : int
 export var height : int
 export var numBattlers : int
 
-onready var tilePre = preload("res://Tile.tscn")
-onready var battlerPre = preload("res://Battler.tscn")
-onready var nameTagPre = preload("res://NameTag.tscn")
+onready var tilePre = preload("res://Scenes/Tile.tscn")
+onready var battlerPre = preload("res://Scenes/Battler.tscn")
+onready var nameTagPre = preload("res://Scenes/NameTag.tscn")
 onready var turnQueue = $TurnQueue
 
 var map = []
