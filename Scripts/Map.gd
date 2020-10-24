@@ -8,6 +8,7 @@ onready var tilePre = preload("res://Scenes/Tile.tscn")
 onready var battlerPre = preload("res://Scenes/Battler.tscn")
 onready var nameTagPre = preload("res://Scenes/NameTag.tscn")
 onready var turnQueue = $TurnQueue
+onready var nameTags = $NameTags
 
 var map = []
 
@@ -30,7 +31,6 @@ func create_map():
 				newTile.convertTile(TestMap.terrainTypes.lush)
 			if randi() % 15 == 1:
 				newTile.convertTile(TestMap.terrainTypes.water)
-	
 
 func create_battlers():
 	for i in range(numBattlers):
@@ -42,3 +42,10 @@ func create_battlers():
 		
 		map[i * 2][i * 2].battler = newBattler
 		turnQueue.add_child(newBattler)
+		
+		var tag = nameTagPre.instance()
+		nameTags.add_child(tag)
+		newBattler.nameTag = tag
+		tag.changeName(newBattler.battlerName)
+		tag.changeHealth(newBattler.hp, newBattler.maxHp)
+		tag.set_global_position(Vector2(352 * i, 0))

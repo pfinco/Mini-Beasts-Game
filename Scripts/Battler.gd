@@ -21,6 +21,7 @@ var type2
 
 var map
 var gridPosition = Vector2.ZERO
+var nameTag
 
 func _ready():
 	maxHp = stats.hp
@@ -73,7 +74,9 @@ func receive_attack(damage):
 	animator.play("Damage")
 	hp -= damage
 	if (hp <= 0):
+		hp = 0
 		die()
+	nameTag.changeHealth(hp, maxHp)
 
 func die():
 	animator.play("Death")
