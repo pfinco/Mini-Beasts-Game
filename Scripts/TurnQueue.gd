@@ -30,20 +30,20 @@ func _input(event):
 				activeBattler.move()
 				start_attack_phase()
 			else:
-				check_moves(event)
+				move_selector(event, activeBattler.tileSelector)
 		phases.attack:
 			if event.is_action_pressed("ui_accept") && activeBattler.target_at_destination():
 				activeBattler.attack_target()
 				change_turn()
 			else:
-				check_moves(event)
+				move_selector(event, activeBattler.attackSelector)
 
-func check_moves(event):
-	if (event.is_action_pressed("ui_left") && activeBattler.selector.get_position().x > 0):
-		activeBattler.selector.move(Vector2(-1, 0))
-	elif (event.is_action_pressed("ui_right") && activeBattler.selector.get_position().x < (map.width - 1 ) * 128):
-		activeBattler.selector.move(Vector2(1, 0))
-	elif (event.is_action_pressed("ui_up") && activeBattler.selector.get_position().y > 0):
-		activeBattler.selector.move(Vector2(0, -1))
-	elif (event.is_action_pressed("ui_down") && activeBattler.selector.get_position().y < (map.height - 1) * 128):
-		activeBattler.selector.move(Vector2(0, 1))
+func move_selector(event, selector):
+	if (event.is_action_pressed("ui_left") && activeBattler.tileSelector.get_position().x > 0):
+		selector.move(Vector2(-1, 0))
+	elif (event.is_action_pressed("ui_right") && activeBattler.tileSelector.get_position().x < (map.width - 1 ) * 128):
+		selector.move(Vector2(1, 0))
+	elif (event.is_action_pressed("ui_up") && activeBattler.tileSelector.get_position().y > 0):
+		selector.move(Vector2(0, -1))
+	elif (event.is_action_pressed("ui_down") && activeBattler.tileSelector.get_position().y < (map.height - 1) * 128):
+		selector.move(Vector2(0, 1))

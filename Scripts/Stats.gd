@@ -1,3 +1,3 @@
 extends Node
 
-onready var statsResource : Resource
+export var statsResource : Resource

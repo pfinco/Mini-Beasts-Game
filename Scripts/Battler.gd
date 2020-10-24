@@ -1,15 +1,18 @@
 extends Position2D
 
-onready var selector = $TileSelector
+onready var tileSelector = $TileSelector
+onready var attackSelector = $AttackSelector
 onready var animator = $AnimationPlayer
 
-var maxHp = 100
-var hp = maxHp
-var atk = 40
-var def = 30
-var mob = 3
-var rAtk = 10
-var rDef = 10
+export var stats : Resource
+
+var maxHp
+var hp
+var atk
+var def
+var mob
+var rAtk
+var rDef
 
 var battlerName = "Babaa"
 
@@ -20,37 +23,48 @@ var map
 var gridPosition = Vector2.ZERO
 
 func _ready():
+	maxHp = stats.hp
+	hp = maxHp
+	atk = stats.atk
+	def = stats.def
+	mob = stats.mob
+	rAtk = stats.rAtk
+	rDef = stats.rDef
+	
 	animator.play("Idle")
+	attackSelector.anim.play("Inactive")
 
 func move():
-	position += selector.position
-	selector.position = Vector2.ZERO
-	selector.visible = false
+	position += tileSelector.position
+	tileSelector.position = Vector2.ZERO
+	tileSelector.visible = false
 	
 	map[gridPosition.x][gridPosition.y].battler = null
 	gridPosition = position / TestMap.TILE_SIZE
 	map[gridPosition.x][gridPosition.y].battler = self
+	attackSelector.anim.play("Active")
 
 func destination_free():
-	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
+	var destination = gridPosition + (tileSelector.position / TestMap.TILE_SIZE)
 	if map[destination.x][destination.y].battler != null:
 		return false
 	else:
 		 return true
 
 func target_at_destination():
-	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
+	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
 	if map[destination.x][destination.y].battler != null && map[destination.x][destination.y].battler != self:
 		return true
 	else:
 		 return false
 
 func attack_target():
-	var destination = gridPosition + (selector.position / TestMap.TILE_SIZE)
-	selector.position = Vector2.ZERO
-	selector.visible = false
+	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
+	attackSelector.position = Vector2.ZERO
+	attackSelector.visible = false
 	if map[destination.x][destination.y].battler != null:
 		map[destination.x][destination.y].battler.receive_attack(atk)
+		attackSelector.anim.play("Inactive")
 		return true
 	else:
 		 return false
