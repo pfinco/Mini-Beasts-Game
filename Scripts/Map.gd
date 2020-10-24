@@ -6,6 +6,7 @@ export var numBattlers : int
 
 onready var tilePre = preload("res://Tile.tscn")
 onready var battlerPre = preload("res://Battler.tscn")
+onready var nameTagPre = preload("res://NameTag.tscn")
 onready var turnQueue = $TurnQueue
 
 var map = []
