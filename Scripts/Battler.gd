@@ -45,12 +45,13 @@ func move():
 	map[gridPosition.x][gridPosition.y].battler = self
 	attackSelector.anim.play("Active")
 
-func destination_free():
+func valid_destination():
 	var destination = gridPosition + (tileSelector.position / TestMap.TILE_SIZE)
-	if map[destination.x][destination.y].battler != null:
-		return false
+	var distance = abs((destination.x - gridPosition.x)) + abs(destination.y - gridPosition.y)
+	if distance <= mob && map[destination.x][destination.y].battler == null:
+		return true
 	else:
-		 return true
+		return false
 
 func target_at_destination():
 	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
