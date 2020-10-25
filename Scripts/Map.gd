@@ -14,6 +14,8 @@ var map = []
 var team1 = []
 var team2 = []
 
+var formation = [Vector2(4, 2), Vector2(4, 4), Vector2(9, 2), Vector2(9, 4)]
+
 func _ready():
 	create_map()
 	create_battlers()
@@ -35,14 +37,15 @@ func create_map():
 				newTile.convertTile(TestMap.terrainTypes.water)
 
 func create_battlers():
+	var fIndex = 0
 	for i in range(numBattlers):
 		var newBattler = battlerPre.instance()
 		
 		newBattler.map = map
-		newBattler.gridPosition = Vector2((i + 1) * 2, (i + 1) * 2)
-		newBattler.position = Vector2((i + 1) * 2 * TestMap.TILE_SIZE, (i + 1) * 2 * TestMap.TILE_SIZE)
+		newBattler.gridPosition = Vector2(formation[fIndex].x, formation[fIndex].y)
+		newBattler.position = Vector2(formation[fIndex].x * TestMap.TILE_SIZE, formation[fIndex].y * TestMap.TILE_SIZE)
 		
-		map[(i + 1) * 2][(i + 1) * 2].battler = newBattler
+		map[formation[fIndex].x][formation[fIndex].y].battler = newBattler
 		turnQueue.add_child(newBattler)
 		newBattler.team = 1
 		team1.append(newBattler)
@@ -52,15 +55,16 @@ func create_battlers():
 		tag.changeName(newBattler.battlerName)
 		tag.changeHealth(newBattler.hp, newBattler.maxHp)
 		tag.set_global_position(Vector2(352 * i, 0))
+		fIndex += 1
 	
 	for i in range(numBattlers):
 		var newBattler = battlerPre.instance()
 		
 		newBattler.map = map
-		newBattler.gridPosition = Vector2(13 - ((i + 1) * 2), (i + 1) * 2)
-		newBattler.position = Vector2((13 - ((i + 1) * 2)) * TestMap.TILE_SIZE, (i + 1) * 2 * TestMap.TILE_SIZE)
-		
-		map[13 - ((i + 1) * 2)][(i + 1) * 2].battler = newBattler
+		newBattler.gridPosition = Vector2(formation[fIndex].x, formation[fIndex].y)
+		newBattler.position = Vector2(formation[fIndex].x * TestMap.TILE_SIZE, formation[fIndex].y * TestMap.TILE_SIZE)
+
+		map[formation[fIndex].x][formation[fIndex].y].battler = newBattler
 		turnQueue.add_child(newBattler)
 		newBattler.team = 2
 		team2.append(newBattler)
@@ -70,3 +74,4 @@ func create_battlers():
 		tag.changeName(newBattler.battlerName)
 		tag.changeHealth(newBattler.hp, newBattler.maxHp)
 		tag.set_global_position(Vector2(1600 - (352 * i), 0))
+		fIndex += 1

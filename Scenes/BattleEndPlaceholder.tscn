@@ -6,9 +6,9 @@
 z_index = 2
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 832.0
-margin_top = 512.0
-margin_right = 1088.0
+margin_left = 704.0
+margin_top = 448.0
+margin_right = 1216.0
 margin_bottom = 640.0
 color = Color( 0.172549, 0.172549, 0.172549, 1 )
 __meta__ = {
@@ -16,10 +16,11 @@ __meta__ = {
 }
 
 [node name="Label" type="Label" parent="."]
-margin_left = 840.0
-margin_top = 536.0
-margin_right = 1080.0
-margin_bottom = 616.0
+margin_left = 720.0
+margin_top = 480.0
+margin_right = 960.0
+margin_bottom = 560.0
+rect_scale = Vector2( 2, 2 )
 custom_fonts/font = ExtResource( 1 )
 text = "Battle End"
 align = 1
