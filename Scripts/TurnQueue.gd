@@ -9,7 +9,7 @@ onready var gameOverPre = preload("res://Scenes/BattleEndPlaceholder.tscn")
 var phases = {
 	"none" : 0,
 	"move" : 1,
-	"attack" : 2,
+	"action" : 2,
 	"end" : 3
 }
 
@@ -33,7 +33,7 @@ func change_turn():
 		change_turn()
 
 func start_attack_phase():
-	phase = phases.attack
+	phase = phases.action
 
 func _input(event):
 	match phase:
@@ -47,7 +47,7 @@ func _input(event):
 					activeBattler.tileSelector.anim.play("Valid")
 				else:
 					activeBattler.tileSelector.anim.play("Invalid")
-		phases.attack:
+		phases.action:
 			if event.is_action_pressed("ui_accept") && activeBattler.target_at_destination():
 				activeBattler.attack_target()
 				change_turn()
