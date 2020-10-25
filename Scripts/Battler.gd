@@ -15,6 +15,7 @@ var rAtk
 var rDef
 
 var battlerName = "Babaa"
+var team
 
 var type1 = TestMap.battlerTypes.plain
 var type2
@@ -48,14 +49,14 @@ func move():
 func valid_destination():
 	var destination = gridPosition + (tileSelector.position / TestMap.TILE_SIZE)
 	var distance = abs((destination.x - gridPosition.x)) + abs(destination.y - gridPosition.y)
-	if distance <= mob && map[destination.x][destination.y].battler == null:
+	if distance <= mob && map[destination.x][destination.y].battler == null || distance <= mob && map[destination.x][destination.y].battler == self || distance <= mob && map[destination.x][destination.y].battler.defeated():
 		return true
 	else:
 		return false
 
 func target_at_destination():
 	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
-	if map[destination.x][destination.y].battler != null && map[destination.x][destination.y].battler != self:
+	if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
 		return true
 	else:
 		 return false
@@ -79,5 +80,19 @@ func receive_attack(damage):
 		die()
 	nameTag.changeHealth(hp, maxHp)
 
+func check_relation(battler):
+	if battler == self:
+		return "Self"
+	elif battler.team == team:
+		return "Ally"
+	else :
+		return "Foe"
+
 func die():
 	animator.play("Death")
+
+func defeated():
+	if hp <= 0:
+		return true
+	else:
+		return false

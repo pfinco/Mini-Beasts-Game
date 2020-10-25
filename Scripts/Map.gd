@@ -11,6 +11,8 @@ onready var turnQueue = $TurnQueue
 onready var nameTags = $NameTags
 
 var map = []
+var team1 = []
+var team2 = []
 
 func _ready():
 	create_map()
@@ -37,15 +39,34 @@ func create_battlers():
 		var newBattler = battlerPre.instance()
 		
 		newBattler.map = map
-		newBattler.gridPosition = Vector2(i * 2, i * 2)
-		newBattler.position = Vector2(i * 2 * TestMap.TILE_SIZE, i * 2 * TestMap.TILE_SIZE)
+		newBattler.gridPosition = Vector2((i + 1) * 2, (i + 1) * 2)
+		newBattler.position = Vector2((i + 1) * 2 * TestMap.TILE_SIZE, (i + 1) * 2 * TestMap.TILE_SIZE)
 		
-		map[i * 2][i * 2].battler = newBattler
+		map[(i + 1) * 2][(i + 1) * 2].battler = newBattler
 		turnQueue.add_child(newBattler)
-		
+		newBattler.team = 1
+		team1.append(newBattler)
 		var tag = nameTagPre.instance()
 		nameTags.add_child(tag)
 		newBattler.nameTag = tag
 		tag.changeName(newBattler.battlerName)
 		tag.changeHealth(newBattler.hp, newBattler.maxHp)
 		tag.set_global_position(Vector2(352 * i, 0))
+	
+	for i in range(numBattlers):
+		var newBattler = battlerPre.instance()
+		
+		newBattler.map = map
+		newBattler.gridPosition = Vector2(13 - ((i + 1) * 2), (i + 1) * 2)
+		newBattler.position = Vector2((13 - ((i + 1) * 2)) * TestMap.TILE_SIZE, (i + 1) * 2 * TestMap.TILE_SIZE)
+		
+		map[13 - ((i + 1) * 2)][(i + 1) * 2].battler = newBattler
+		turnQueue.add_child(newBattler)
+		newBattler.team = 2
+		team2.append(newBattler)
+		var tag = nameTagPre.instance()
+		nameTags.add_child(tag)
+		newBattler.nameTag = tag
+		tag.changeName(newBattler.battlerName)
+		tag.changeHealth(newBattler.hp, newBattler.maxHp)
+		tag.set_global_position(Vector2(1600 - (352 * i), 0))
