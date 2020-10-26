@@ -57,7 +57,7 @@ func valid_destination():
 func has_valid_targets(action):
 	for tile in action.targetedTiles:
 		var destination = gridPosition + (tile * facing)
-		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
 				return true
 	return false
@@ -66,7 +66,7 @@ func mark_targets(action):
 	remove_selectors()
 	for tile in action.targetedTiles:
 		var destination = gridPosition + (tile * facing)
-		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 			var selector = attackSelector.instance()
 			$AttackSelectors.add_child(selector)
 			selector.set_position(tile * facing * TestMap.TILE_SIZE)
@@ -74,9 +74,9 @@ func mark_targets(action):
 func attack_targets(action):
 	for tile in action.targetedTiles:
 		var destination = gridPosition + (tile * facing)
-		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
-				map[destination.x][destination.y].battler.receive_attack(atk)
+				map[destination.x][destination.y].battler.receive_attack(action.power, action.category, atk, rAtk)
 	remove_selectors()
 
 func remove_selectors():
@@ -84,8 +84,17 @@ func remove_selectors():
 		$AttackSelectors.remove_child(selector)
 		selector.queue_free()
 
-func receive_attack(damage):
+func receive_attack(power, category, attack, rAttack):
 	animator.play("Damage")
+	var damage
+	if category == "Melee":
+		if def < 1:
+			def = 1
+		damage = (power * attack) / def
+	elif category == "Ranged":
+		if rDef < 1:
+			rDef = 1
+		damage = (power * rAttack) / rDef
 	hp -= damage
 	if (hp <= 0):
 		hp = 0

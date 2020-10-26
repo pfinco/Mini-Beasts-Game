@@ -4,12 +4,12 @@
 
 [resource]
 script = ExtResource( 1 )
-moveName = "Headbutt"
+moveName = "Pushback"
 category = "Melee"
 type = 0
-power = 30
+power = 20
 accuracy = -1
 effectChance = 0
-description = "The user attacks by charging into the foe."
-targetedTiles = [ Vector2( 1, 0 ) ]
+description = "The user slams the foe, sending them flying backwards. Knocks the target(s) backwards."
+targetedTiles = [ Vector2( 1, 1 ), Vector2( 1, 0 ), Vector2( 1, -1 ) ]
 target = "All"

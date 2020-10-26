@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource( 1 )
 hp = 100
-atk = 40
-def = 30
+atk = 4
+def = 3
 mob = 3
-rAtk = 10
-rDef = 10
+rAtk = 1
+rDef = 1
