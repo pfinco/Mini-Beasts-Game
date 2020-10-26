@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Fireball"
+category = "Ranged"
+type = 6
+power = 20
+accuracy = 100
+effectChance = 0
+description = "The user launches a fireball at the foe."
+targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
+target = "First"

@@ -3,8 +3,11 @@ extends Node2D
 var map
 var activeBattler
 var phase
+var menu
+var chosenAction
 
 onready var gameOverPre = preload("res://Scenes/BattleEndPlaceholder.tscn")
+onready var actionMenuPre = preload("res://Scenes/ActionMenu.tscn")
 
 var phases = {
 	"none" : 0,
@@ -34,6 +37,10 @@ func change_turn():
 
 func start_attack_phase():
 	phase = phases.action
+	var actionMenu = actionMenuPre.instance()
+	activeBattler.add_child(actionMenu)
+	actionMenu.populateList(activeBattler.moveList)
+	menu = actionMenu
 
 func _input(event):
 	match phase:
@@ -48,11 +55,33 @@ func _input(event):
 				else:
 					activeBattler.tileSelector.anim.play("Invalid")
 		phases.action:
-			if event.is_action_pressed("ui_accept") && activeBattler.target_at_destination():
-				activeBattler.attack_target()
-				change_turn()
-			else:
-				move_selector(event, activeBattler.attackSelector)
+			if event.is_action_pressed("ui_accept"):
+				if chosenAction == null:
+					if menu.selectedAction == menu.get_child_count() - 1:
+						change_turn()
+						menu.queue_free()
+					else:
+						activeBattler.facing = Vector2(1, 1)
+						chosenAction = activeBattler.moveList[menu.selectedAction]
+						activeBattler.mark_targets(chosenAction)
+						menu.queue_free()
+				elif activeBattler.has_valid_targets(chosenAction):
+					activeBattler.attack_targets(chosenAction)
+					chosenAction = null
+					change_turn()
+			elif event.is_action_pressed("ui_left"):
+				if chosenAction != null:
+					activeBattler.facing = Vector2(-1, 1)
+					activeBattler.mark_targets(chosenAction)
+			elif event.is_action_pressed("ui_right"):
+				if chosenAction != null:
+					activeBattler.facing = Vector2(1, 1)
+					activeBattler.mark_targets(chosenAction)
+			elif event.is_action_pressed("ui_back"):
+				if chosenAction != null:
+					start_attack_phase()
+					activeBattler.remove_selectors()
+					chosenAction = null
 
 func move_selector(event, selector):
 	if (event.is_action_pressed("ui_left") && selector.get_position().x > 0):

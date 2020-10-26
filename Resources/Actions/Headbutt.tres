@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Headbutt"
+category = "Melee"
+type = 0
+power = 20
+accuracy = -1
+effectChance = 0
+description = "The user attacks by charging into the foe."
+targetedTiles = [ Vector2( 1, 0 ) ]
+target = "All"

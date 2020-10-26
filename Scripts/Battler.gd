@@ -1,8 +1,9 @@
 extends Position2D
 
 onready var tileSelector = $TileSelector
-onready var attackSelector = $AttackSelector
 onready var animator = $AnimationPlayer
+onready var moveList = $MoveList.get_children()
+onready var attackSelector = preload("res://Scenes/AttackSelector.tscn")
 
 export var stats : Resource
 
@@ -18,10 +19,11 @@ var battlerName = "Babaa"
 var team
 
 var type1 = TestMap.battlerTypes.plain
-var type2
+var type2 = TestMap.battlerTypes.plain
 
 var map
 var gridPosition = Vector2.ZERO
+var facing = Vector2(1, 1)
 var nameTag
 
 func _ready():
@@ -34,7 +36,6 @@ func _ready():
 	rDef = stats.rDef
 	
 	animator.play("Idle")
-	attackSelector.anim.play("Inactive")
 
 func move():
 	position += tileSelector.position
@@ -44,7 +45,6 @@ func move():
 	map[gridPosition.x][gridPosition.y].battler = null
 	gridPosition = position / TestMap.TILE_SIZE
 	map[gridPosition.x][gridPosition.y].battler = self
-	attackSelector.anim.play("Active")
 
 func valid_destination():
 	var destination = gridPosition + (tileSelector.position / TestMap.TILE_SIZE)
@@ -54,23 +54,35 @@ func valid_destination():
 	else:
 		return false
 
-func target_at_destination():
-	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
-	if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
-		return true
-	else:
-		 return false
+func has_valid_targets(action):
+	for tile in action.targetedTiles:
+		var destination = gridPosition + (tile * facing)
+		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
+				return true
+	return false
 
-func attack_target():
-	var destination = gridPosition + (attackSelector.position / TestMap.TILE_SIZE)
-	attackSelector.position = Vector2.ZERO
-	attackSelector.visible = false
-	if map[destination.x][destination.y].battler != null:
-		map[destination.x][destination.y].battler.receive_attack(atk)
-		attackSelector.anim.play("Inactive")
-		return true
-	else:
-		 return false
+func mark_targets(action):
+	remove_selectors()
+	for tile in action.targetedTiles:
+		var destination = gridPosition + (tile * facing)
+		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+			var selector = attackSelector.instance()
+			$AttackSelectors.add_child(selector)
+			selector.set_position(tile * facing * TestMap.TILE_SIZE)
+
+func attack_targets(action):
+	for tile in action.targetedTiles:
+		var destination = gridPosition + (tile * facing)
+		if destination.x > 0 && destination.x < map.size() && destination.y > 0 && destination.y < map[0].size():
+			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
+				map[destination.x][destination.y].battler.receive_attack(atk)
+	remove_selectors()
+
+func remove_selectors():
+	for selector in $AttackSelectors.get_children():
+		$AttackSelectors.remove_child(selector)
+		selector.queue_free()
 
 func receive_attack(damage):
 	animator.play("Damage")
