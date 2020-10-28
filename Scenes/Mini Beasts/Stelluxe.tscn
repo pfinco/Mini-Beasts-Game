@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Battler.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Sprites/Stelluxe.png" type="Texture" id=2]
+[ext_resource path="res://Resources/MiniBeasts/StelluxeStats.tres" type="Resource" id=3]
+[ext_resource path="res://Scenes/Actions/Whirlpool.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scenes/Actions/ShineShot.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Actions/SunBeam.tscn" type="PackedScene" id=6]
+
+[node name="Stelluxe" instance=ExtResource( 1 )]
+stats = ExtResource( 3 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 2 )
+
+[node name="ShineShot" parent="MoveList" index="0" instance=ExtResource( 5 )]
+
+[node name="Whirlpool" parent="MoveList" index="1" instance=ExtResource( 4 )]
+
+[node name="SunBeam" parent="MoveList" index="2" instance=ExtResource( 6 )]

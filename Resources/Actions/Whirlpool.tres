@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Whirlpool"
+category = "Melee"
+type = 2
+power = 20
+accuracy = -1
+effectChance = 0
+description = "The user spins rapidly, trapping nearby foes in a whirlpool."
+targetedTiles = [ Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( -1, 0 ), Vector2( 0, -1 ) ]
+target = "All"

@@ -27,6 +27,7 @@ var facing = Vector2(1, 1)
 var nameTag
 
 func _ready():
+	battlerName = stats.name
 	maxHp = stats.hp
 	hp = maxHp
 	atk = stats.atk

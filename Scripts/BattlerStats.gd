@@ -2,6 +2,7 @@ extends Resource
 
 class_name BattlerStats
 
+export var name : String
 export var hp : int
 export var atk : int
 export var def : int

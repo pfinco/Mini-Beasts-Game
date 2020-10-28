@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Signal Flare"
+category = "Ranged"
+type = 6
+power = 20
+accuracy = 100
+effectChance = 0
+description = "The user pins a flame to the foe, marking their location for allies."
+targetedTiles = [ Vector2( 5, 0 ), Vector2( 5, 5 ), Vector2( 5, 5 ) ]
+target = "One"

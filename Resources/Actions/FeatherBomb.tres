@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Feather Bomb"
+category = "Ranged"
+type = 0
+power = 15
+accuracy = 100
+effectChance = 0
+description = "The user throws a large amount of feathers at the foe to distract them and then retreats."
+targetedTiles = [ Vector2( 2, 0 ), Vector2( 1, 1 ), Vector2( 1, -1 ), Vector2( 3, 1 ), Vector2( 3, -1 ) ]
+target = "One"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Flame Burst"
+category = "Melee"
+type = 6
+power = 30
+accuracy = -1
+effectChance = 0
+description = "The user combusts into a fireball, damaging everything nearby"
+targetedTiles = [ Vector2( 1, 0 ), Vector2( 1, 1 ), Vector2( 0, 1 ), Vector2( -1, 1 ), Vector2( -1, 0 ), Vector2( -1, -1 ), Vector2( 0, -1 ), Vector2( 1, -1 ) ]
+target = "All"

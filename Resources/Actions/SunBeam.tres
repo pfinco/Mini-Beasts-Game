@@ -1,0 +1,15 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Sun Beam"
+category = "Ranged"
+type = 14
+power = 30
+accuracy = 100
+effectChance = 0
+description = "The user absorbs light from the sky for one turn, then fires it on the following turn."
+targetedTiles = [ Vector2( 2, 0 ), Vector2( 3, 0 ), Vector2( 4, 0 ), Vector2( 5, 0 ) ]
+target = "All"

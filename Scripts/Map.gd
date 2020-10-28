@@ -5,7 +5,10 @@ export var height : int
 export var numBattlers : int
 
 onready var tilePre = preload("res://Scenes/Tile.tscn")
-onready var battlerPre = preload("res://Scenes/Battler.tscn")
+onready var babaaPre = preload("res://Scenes/Mini Beasts/Babaa.tscn")
+onready var stelluxePre = preload("res://Scenes/Mini Beasts/Stelluxe.tscn")
+onready var sapackPre = preload("res://Scenes/Mini Beasts/Sapack.tscn")
+onready var machirpPre = preload("res://Scenes/Mini Beasts/Machirp.tscn")
 onready var nameTagPre = preload("res://Scenes/NameTag.tscn")
 onready var turnQueue = $TurnQueue
 onready var nameTags = $NameTags
@@ -18,7 +21,10 @@ var formation = [Vector2(4, 2), Vector2(4, 4), Vector2(9, 2), Vector2(9, 4)]
 
 func _ready():
 	create_map()
-	create_battlers()
+	add_battler(babaaPre, team1, 0)
+	add_battler(stelluxePre, team1, 1)
+	add_battler(sapackPre, team2, 2)
+	add_battler(machirpPre, team2, 3)
 	turnQueue.start(self)
 
 func create_map():
@@ -36,42 +42,25 @@ func create_map():
 			if randi() % 15 == 1:
 				newTile.convertTile(TestMap.terrainTypes.water)
 
-func create_battlers():
-	var fIndex = 0
-	for i in range(numBattlers):
-		var newBattler = battlerPre.instance()
-		
-		newBattler.map = map
-		newBattler.gridPosition = Vector2(formation[fIndex].x, formation[fIndex].y)
-		newBattler.position = Vector2(formation[fIndex].x * TestMap.TILE_SIZE, formation[fIndex].y * TestMap.TILE_SIZE)
-		
-		map[formation[fIndex].x][formation[fIndex].y].battler = newBattler
-		turnQueue.add_child(newBattler)
-		newBattler.team = 1
-		team1.append(newBattler)
-		var tag = nameTagPre.instance()
-		nameTags.add_child(tag)
-		newBattler.nameTag = tag
-		tag.changeName(newBattler.battlerName)
-		tag.changeHealth(newBattler.hp, newBattler.maxHp)
-		tag.set_global_position(Vector2(352 * i, 0))
-		fIndex += 1
-	
-	for i in range(numBattlers):
-		var newBattler = battlerPre.instance()
-		
-		newBattler.map = map
-		newBattler.gridPosition = Vector2(formation[fIndex].x, formation[fIndex].y)
-		newBattler.position = Vector2(formation[fIndex].x * TestMap.TILE_SIZE, formation[fIndex].y * TestMap.TILE_SIZE)
+func add_battler(battler, team, index):
 
-		map[formation[fIndex].x][formation[fIndex].y].battler = newBattler
+		var newBattler = battler.instance()
+		
+		newBattler.map = map
+		newBattler.gridPosition = formation[index]
+		newBattler.position = formation[index] * TestMap.TILE_SIZE
+
+		map[formation[index].x][formation[index].y].battler = newBattler
 		turnQueue.add_child(newBattler)
-		newBattler.team = 2
-		team2.append(newBattler)
 		var tag = nameTagPre.instance()
 		nameTags.add_child(tag)
 		newBattler.nameTag = tag
 		tag.changeName(newBattler.battlerName)
 		tag.changeHealth(newBattler.hp, newBattler.maxHp)
-		tag.set_global_position(Vector2(1600 - (352 * i), 0))
-		fIndex += 1
+		team.append(newBattler)
+		if team == team1:
+			newBattler.team = 1
+			tag.set_global_position(Vector2(352 * (team.size() - 1), 0))
+		else:
+			newBattler.team = 2
+			tag.set_global_position(Vector2(1600 - (352 * (team.size() - 1)), 0))

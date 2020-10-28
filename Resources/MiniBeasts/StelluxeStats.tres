@@ -4,10 +4,10 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Babaa"
-hp = 100
-atk = 4
-def = 3
-mob = 3
-rAtk = 1
-rDef = 1
+name = "Stelluxe"
+hp = 150
+atk = 1
+def = 1
+mob = 1
+rAtk = 4
+rDef = 3
