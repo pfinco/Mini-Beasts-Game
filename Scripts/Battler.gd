@@ -59,7 +59,7 @@ func has_valid_targets(action):
 	for tile in action.targetedTiles:
 		var destination = gridPosition + (tile * facing)
 		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
-			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
+			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe" && map[destination.x][destination.y].battler.defeated() == false:
 				return true
 	return false
 
@@ -76,8 +76,10 @@ func attack_targets(action):
 	for tile in action.targetedTiles:
 		var destination = gridPosition + (tile * facing)
 		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
-			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe":
-				map[destination.x][destination.y].battler.receive_attack(action.power, action.category, atk, rAtk)
+			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe" && map[destination.x][destination.y].battler.defeated() == false:
+				attack(map[destination.x][destination.y].battler, action)
+				if action.kbPower != 0:
+					deal_knockback(map[destination.x][destination.y].battler, action)
 	remove_selectors()
 
 func remove_selectors():
@@ -85,22 +87,37 @@ func remove_selectors():
 		$AttackSelectors.remove_child(selector)
 		selector.queue_free()
 
-func receive_attack(power, category, attack, rAttack):
+func take_damage(amount):
 	animator.play("Damage")
-	var damage
-	if category == "Melee":
-		if def < 1:
-			def = 1
-		damage = (power * attack) / def
-	elif category == "Ranged":
-		if rDef < 1:
-			rDef = 1
-		damage = (power * rAttack) / rDef
-	hp -= damage
+	hp -= amount
 	if (hp <= 0):
 		hp = 0
 		die()
 	nameTag.changeHealth(hp, maxHp)
+
+func attack(target, action):
+	var damage
+	if action.category == "Melee":
+		if target.def < 1:
+			target.def = 1
+		damage = (action.power * atk) / target.def
+	elif action.category == "Ranged":
+		if target.rDef < 1:
+			target.rDef = 1
+		damage = (action.power * rAtk) / target.rDef
+	target.take_damage(damage)
+
+func deal_knockback(target, action):
+	for i in range(action.kbPower):
+		if map[target.gridPosition.x + action.kbDirection.x * facing.x][target.gridPosition.y + action.kbDirection.y * facing.y].battler == null:
+			target.position += action.kbDirection * facing * TestMap.TILE_SIZE
+			map[target.gridPosition.x][target.gridPosition.y].battler = null
+			target.gridPosition = target.position / TestMap.TILE_SIZE
+			map[target.gridPosition.x][target.gridPosition.y].battler = target
+		else:
+			attack(map[target.gridPosition.x + action.kbDirection.x * facing.x][target.gridPosition.y + action.kbDirection.y * facing.y].battler, action)
+			attack(target, action)
+			break
 
 func check_relation(battler):
 	if battler == self:

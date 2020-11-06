@@ -11,3 +11,5 @@ export var effectChance : int
 export var description : String
 export var targetedTiles : Array
 export var target : String
+export var kbDirection : Vector2
+export var kbPower : int

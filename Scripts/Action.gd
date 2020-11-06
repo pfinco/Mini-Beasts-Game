@@ -9,6 +9,8 @@ var effectChance
 var description
 var targetedTiles
 var numTargets
+var kbPower
+var kbDirection
 
 export var stats : Resource
 
@@ -21,3 +23,5 @@ func _ready():
 	effectChance = stats.effectChance
 	description = stats.description
 	targetedTiles = stats.targetedTiles
+	kbPower = stats.kbPower
+	kbDirection = stats.kbDirection

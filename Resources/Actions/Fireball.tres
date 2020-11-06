@@ -13,3 +13,5 @@ effectChance = 0
 description = "The user launches a fireball at the foe."
 targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
 target = "First"
+kbDirection = Vector2( 0, 0 )
+kbPower = 0

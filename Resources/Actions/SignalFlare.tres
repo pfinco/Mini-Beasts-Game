@@ -13,3 +13,5 @@ effectChance = 0
 description = "The user pins a flame to the foe, marking their location for allies."
 targetedTiles = [ Vector2( 5, 0 ), Vector2( 5, 5 ), Vector2( 5, 5 ) ]
 target = "One"
+kbDirection = Vector2( 0, 0 )
+kbPower = 0

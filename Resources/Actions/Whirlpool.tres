@@ -13,3 +13,5 @@ effectChance = 0
 description = "The user spins rapidly, trapping nearby foes in a whirlpool."
 targetedTiles = [ Vector2( 1, 0 ), Vector2( 0, 1 ), Vector2( -1, 0 ), Vector2( 0, -1 ) ]
 target = "All"
+kbDirection = Vector2( 0, 0 )
+kbPower = 0
