@@ -2,27 +2,27 @@ extends Sprite
 
 func _on_Tile_tileConverted(type):
 	match type:
-		TestMap.terrainTypes.plain:
+		Game.terrainTypes.plain:
 			texture = load("res://Sprites/Terrain/PlainTerrain.png")
-		TestMap.terrainTypes.lush:
+		Game.terrainTypes.lush:
 			texture = load("res://Sprites/Terrain/LushTerrain.png")
-		TestMap.terrainTypes.water:
+		Game.terrainTypes.water:
 			texture = load("res://Sprites/Terrain/WaterTerrain.png")
-		TestMap.terrainTypes.snow:
+		Game.terrainTypes.snow:
 			texture = load("res://Sprites/Terrain/SnowyTerrain.png")
-		TestMap.terrainTypes.sand:
+		Game.terrainTypes.sand:
 			texture = load("res://Sprites/Terrain/SandyTerrain.png")
-		TestMap.terrainTypes.rocks:
+		Game.terrainTypes.rocks:
 			texture = load("res://Sprites/Terrain/RockyTerrain.png")
-		TestMap.terrainTypes.scorched:
+		Game.terrainTypes.scorched:
 			texture = load("res://Sprites/Terrain/ScorchedTerrain.png")
-		TestMap.terrainTypes.foul:
+		Game.terrainTypes.foul:
 			texture = load("res://Sprites/Terrain/FoulTerrain.png")
-		TestMap.terrainTypes.charged:
+		Game.terrainTypes.charged:
 			texture = load("res://Sprites/Terrain/ChargedTerrain.png")
-		TestMap.terrainTypes.metal:
+		Game.terrainTypes.metal:
 			texture = load("res://Sprites/Terrain/MetalTerrain.png")
-		TestMap.terrainTypes.enchanted:
+		Game.terrainTypes.enchanted:
 			texture = load("res://Sprites/Terrain/EnchantedTerrain.png")
-		TestMap.terrainTypes.warped:
+		Game.terrainTypes.warped:
 			texture = load("res://Sprites/Terrain/WarpedTerrain.png")

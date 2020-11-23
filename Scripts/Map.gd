@@ -5,11 +5,6 @@ export var height : int
 export var numBattlers : int
 
 onready var tilePre = preload("res://Scenes/Tile.tscn")
-onready var babaaPre = preload("res://Scenes/Mini Beasts/Babaa.tscn")
-onready var stelluxePre = preload("res://Scenes/Mini Beasts/Stelluxe.tscn")
-onready var sapackPre = preload("res://Scenes/Mini Beasts/Sapack.tscn")
-onready var machirpPre = preload("res://Scenes/Mini Beasts/Machirp.tscn")
-onready var egginPre = preload("res://Scenes/Mini Beasts/Eggin.tscn")
 onready var nameTagPre = preload("res://Scenes/NameTag.tscn")
 onready var turnQueue = $TurnQueue
 onready var nameTags = $NameTags
@@ -18,14 +13,17 @@ var map = []
 var team1 = []
 var team2 = []
 
-var formation = [Vector2(4, 2), Vector2(4, 4), Vector2(9, 2), Vector2(9, 4)]
+var formation = [Vector2(4, 1), Vector2(4, 3), Vector2(4, 5), Vector2(9, 1), Vector2(9, 3), Vector2(9, 5)]
 
 func _ready():
 	create_map()
-	add_battler(babaaPre, team1, 0)
-	add_battler(egginPre, team1, 1)
-	add_battler(sapackPre, team2, 2)
-	add_battler(machirpPre, team2, 3)
+	var index = 0
+	for b in Game.party:
+		add_battler(b, team1, index)
+		index += 1
+	for b in Game.foes:
+		add_battler(b, team2, index)
+		index += 1
 	turnQueue.start(self)
 
 func create_map():
@@ -34,14 +32,14 @@ func create_map():
 		map[x].resize(height)
 		for y in range(height):
 			var newTile = tilePre.instance()
-			newTile.position = Vector2(x * TestMap.TILE_SIZE, y * TestMap.TILE_SIZE)
+			newTile.position = Vector2(x * Game.TILE_SIZE, y * Game.TILE_SIZE)
 			add_child(newTile)
 			map[x][y] = newTile
 			randomize()
 			if randi() % 5 == 1:
-				newTile.convertTile(TestMap.terrainTypes.lush)
+				newTile.convertTile(Game.terrainTypes.lush)
 			if randi() % 15 == 1:
-				newTile.convertTile(TestMap.terrainTypes.water)
+				newTile.convertTile(Game.terrainTypes.water)
 
 func add_battler(battler, team, index):
 
@@ -49,7 +47,7 @@ func add_battler(battler, team, index):
 		
 		newBattler.map = map
 		newBattler.gridPosition = formation[index]
-		newBattler.position = formation[index] * TestMap.TILE_SIZE
+		newBattler.position = formation[index] * Game.TILE_SIZE
 
 		map[formation[index].x][formation[index].y].battler = newBattler
 		turnQueue.add_child(newBattler)
@@ -61,7 +59,7 @@ func add_battler(battler, team, index):
 		team.append(newBattler)
 		if team == team1:
 			newBattler.team = 1
-			tag.set_global_position(Vector2(352 * (team.size() - 1), 0))
+			tag.set_global_position(Vector2(275 * (team.size() - 1), 0))
 		else:
 			newBattler.team = 2
-			tag.set_global_position(Vector2(1600 - (352 * (team.size() - 1)), 0))
+			tag.set_global_position(Vector2(1600 - (275 * (team.size() - 1)), 0))

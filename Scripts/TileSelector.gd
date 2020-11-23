@@ -7,4 +7,4 @@ func get_position():
 
 func move(direction):
 	visible = true
-	position += (TestMap.TILE_SIZE * direction)
+	position += (Game.TILE_SIZE * direction)

@@ -29,5 +29,5 @@ func _ready():
 	kbPower = stats.kbPower
 	kbDirection = stats.kbDirection
 
-func effect(user, target):
+func effect(_user, _target):
 	pass

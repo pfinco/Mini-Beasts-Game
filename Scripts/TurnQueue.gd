@@ -21,7 +21,7 @@ func start(newMap):
 	activeBattler = get_child(0)
 	phase = phases.move
 
-func _process(delta):
+func _process(_delta):
 	if is_team_defeated(map.team1) || is_team_defeated(map.team2) && phase != phases.end:
 		phase = phases.end
 		var go = gameOverPre.instance()

@@ -18,8 +18,8 @@ var rDef
 var battlerName = "Babaa"
 var team
 
-var type1 = TestMap.battlerTypes.plain
-var type2 = TestMap.battlerTypes.plain
+var type1 = Game.battlerTypes.plain
+var type2 = Game.battlerTypes.plain
 
 var map
 var gridPosition = Vector2.ZERO
@@ -45,11 +45,11 @@ func move():
 	tileSelector.visible = false
 	
 	map[gridPosition.x][gridPosition.y].battler = null
-	gridPosition = position / TestMap.TILE_SIZE
+	gridPosition = position / Game.TILE_SIZE
 	map[gridPosition.x][gridPosition.y].battler = self
 
 func valid_destination():
-	var destination = gridPosition + (tileSelector.position / TestMap.TILE_SIZE)
+	var destination = gridPosition + (tileSelector.position / Game.TILE_SIZE)
 	var distance = abs((destination.x - gridPosition.x)) + abs(destination.y - gridPosition.y)
 	if distance <= mob && map[destination.x][destination.y].battler == null || distance <= mob && map[destination.x][destination.y].battler == self || distance <= mob && map[destination.x][destination.y].battler.defeated():
 		return true
@@ -58,7 +58,7 @@ func valid_destination():
 
 func has_valid_targets(action):
 	if action.numTargets == "One":
-		var destination = targetSelector.get_position() / TestMap.TILE_SIZE
+		var destination = targetSelector.get_position() / Game.TILE_SIZE
 		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size() && destination - gridPosition in action.targetedTiles:
 				if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
 					return true
@@ -78,19 +78,19 @@ func mark_targets(action):
 			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 				var selector = attackSelector.instance()
 				$AttackSelectors.add_child(selector)
-				selector.set_position(tile * facing * TestMap.TILE_SIZE)
+				selector.set_position(tile * facing * Game.TILE_SIZE)
 		var selector = attackSelector.instance()
 		targetSelector = selector
 		add_child(selector)
 		selector.anim.play("Valid")
-		selector.set_position(action.targetedTiles[0] * facing * TestMap.TILE_SIZE)
+		selector.set_position(action.targetedTiles[0] * facing * Game.TILE_SIZE)
 	else:
 		for tile in action.targetedTiles:
 			var destination = gridPosition + (tile * facing)
 			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 				var selector = attackSelector.instance()
 				$AttackSelectors.add_child(selector)
-				selector.set_position(tile * facing * TestMap.TILE_SIZE)
+				selector.set_position(tile * facing * Game.TILE_SIZE)
 
 func attack_targets(action):
 	if action.numTargets == "All":
@@ -111,7 +111,7 @@ func attack_targets(action):
 						deal_knockback(map[destination.x][destination.y].battler, action)
 					break
 	elif action.numTargets == "One":
-		var destination = targetSelector.get_position() / TestMap.TILE_SIZE
+		var destination = targetSelector.get_position() / Game.TILE_SIZE
 		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
 			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
 				attack(map[destination.x][destination.y].battler, action)
@@ -156,11 +156,11 @@ func attack(target, action):
 		target.heal(damage)
 
 func deal_knockback(target, action):
-	for i in range(action.kbPower):
+	for _i in range(action.kbPower):
 		if map[target.gridPosition.x + action.kbDirection.x * facing.x][target.gridPosition.y + action.kbDirection.y * facing.y].battler == null:
-			target.position += action.kbDirection * facing * TestMap.TILE_SIZE
+			target.position += action.kbDirection * facing * Game.TILE_SIZE
 			map[target.gridPosition.x][target.gridPosition.y].battler = null
-			target.gridPosition = target.position / TestMap.TILE_SIZE
+			target.gridPosition = target.position / Game.TILE_SIZE
 			map[target.gridPosition.x][target.gridPosition.y].battler = target
 		else:
 			attack(map[target.gridPosition.x + action.kbDirection.x * facing.x][target.gridPosition.y + action.kbDirection.y * facing.y].battler, action)

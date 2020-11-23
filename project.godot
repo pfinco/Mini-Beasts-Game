@@ -27,12 +27,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Mini Beasts Game"
-run/main_scene="res://Scenes/TestMap.tscn"
+run/main_scene="res://Scenes/BattlerSelect.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-TestMap="*res://Scenes/TestMap.tscn"
+Game="*res://Scenes/Game.tscn"
 
 [display]
 

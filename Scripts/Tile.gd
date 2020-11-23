@@ -7,7 +7,7 @@ var prevType
 var battler
 
 func _ready():
-	type =  TestMap.terrainTypes.plain
+	type =  Game.terrainTypes.plain
 
 func convertTile(newType):
 	if type != newType:

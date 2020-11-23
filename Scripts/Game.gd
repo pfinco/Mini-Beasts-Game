@@ -2,6 +2,10 @@ extends Node2D
 
 const TILE_SIZE = 128
 
+var party = []
+
+var foes = []
+
 var battlerTypes = {
 	"plain" : 0,
 	"plant" : 1,

@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Map.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/TurnQueue.gd" type="Script" id=2]
+
+[node name="Map" type="Node2D"]
+position = Vector2( 64, 128 )
+script = ExtResource( 1 )
+width = 14
+height = 7
+numBattlers = 2
+
+[node name="TurnQueue" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="NameTags" type="Node2D" parent="."]
