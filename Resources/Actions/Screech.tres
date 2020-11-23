@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Screech"
+category = "Ranged"
+type = 16
+power = 20
+accuracy = 100
+effectChance = 0
+description = "The user lets out a high pitched shriek at the foe."
+targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 1, -1 ), Vector2( 1, 1 ) ]
+target = "All"
+targetTypes = [ "Foe" ]
+kbDirection = Vector2( 0, 0 )
+kbPower = 0

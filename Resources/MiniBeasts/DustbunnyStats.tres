@@ -8,6 +8,6 @@ name = "Dustbunny"
 hp = 100
 atk = 2
 def = 3
-mob = 4
+mob = 5
 rAtk = 2
 rDef = 1

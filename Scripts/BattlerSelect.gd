@@ -8,32 +8,48 @@ var team2 = []
 
 onready var selector = $Selector
 
+onready var babaaPre = preload("res://Scenes/Mini Beasts/Babaa.tscn")
+onready var stelluxePre = preload("res://Scenes/Mini Beasts/Stelluxe.tscn")
+onready var sapackPre = preload("res://Scenes/Mini Beasts/Sapack.tscn")
+onready var egginPre = preload("res://Scenes/Mini Beasts/Eggin.tscn")
+onready var machirpPre = preload("res://Scenes/Mini Beasts/Machirp.tscn")
+onready var honbatPre = preload("res://Scenes/Mini Beasts/Honbat.tscn")
+onready var dustbunnyPre = preload("res://Scenes/Mini Beasts/Dustbunny.tscn")
+
 func _ready():
-	for _x in range(5):
+	for _y in range(2):
 		battlerList.append([])
-	battlerList[0].append(preload("res://Scenes/Mini Beasts/Babaa.tscn"))
-	battlerList[1].append(preload("res://Scenes/Mini Beasts/Stelluxe.tscn"))
-	battlerList[2].append(preload("res://Scenes/Mini Beasts/Sapack.tscn"))
-	battlerList[3].append(preload("res://Scenes/Mini Beasts/Eggin.tscn"))
-	battlerList[4].append(preload("res://Scenes/Mini Beasts/Machirp.tscn"))
+	battlerList[0].append(babaaPre)
+	battlerList[0].append(stelluxePre)
+	battlerList[0].append(sapackPre)
+	battlerList[0].append(egginPre)
+	battlerList[0].append(machirpPre)
+	battlerList[1].append(honbatPre)
+	battlerList[1].append(dustbunnyPre)
 
 func _input(event):
 	if event.is_action_pressed("ui_left") && selectedBattler.x > 0:
 		selectedBattler.x -= 1
 		selector.position.x -= 256
-	elif event.is_action_pressed("ui_right") && selectedBattler.x < 4:
+	elif event.is_action_pressed("ui_right") && selectedBattler.x < battlerList[selectedBattler.y].size() - 1:
 		selectedBattler.x += 1
 		selector.position.x += 256
+	elif event.is_action_pressed("ui_up") && selectedBattler.y > 0:
+		selectedBattler.y -= 1
+		selector.position.y -= 256
+	elif event.is_action_pressed("ui_down") && selectedBattler.y < battlerList.size() - 1 && selectedBattler.x <= battlerList[selectedBattler.y + 1].size() - 1:
+		selectedBattler.y += 1
+		selector.position.y += 256
 	elif event.is_action_pressed("ui_accept"):
 		if team1.size() < 3:
-			team1.append(battlerList[selectedBattler.x][selectedBattler.y])
-			var battler = battlerList[selectedBattler.x][selectedBattler.y].instance()
+			team1.append(battlerList[selectedBattler.y][selectedBattler.x])
+			var battler = battlerList[selectedBattler.y][selectedBattler.x].instance()
 			$ChosenBattlers.add_child(battler)
 			battler.position = Vector2(0, (team1.size()) * Game.TILE_SIZE)
 			$Team1.get_child(team1.size() - 1).text = battler.battlerName
 		elif team2.size() < 3:
-			team2.append(battlerList[selectedBattler.x][selectedBattler.y])
-			var battler = battlerList[selectedBattler.x][selectedBattler.y].instance()
+			team2.append(battlerList[selectedBattler.y][selectedBattler.x])
+			var battler = battlerList[selectedBattler.y][selectedBattler.x].instance()
 			$ChosenBattlers.add_child(battler)
 			battler.position = Vector2(1792, (team2.size()) * Game.TILE_SIZE)
 			$Team2.get_child(team2.size() - 1).text = battler.battlerName

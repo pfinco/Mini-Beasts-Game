@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sprites/Babaa.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Selector.png" type="Texture" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Sprites/Sapack.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/BattlerSelect.gd" type="Script" id=7]
 [ext_resource path="res://Fonts/Finkwell.tres" type="DynamicFont" id=8]
+[ext_resource path="res://Sprites/Honbat.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Dustbunny.png" type="Texture" id=10]
 
 [node name="BattlerSelect" type="Node2D"]
 script = ExtResource( 7 )
@@ -159,3 +161,11 @@ __meta__ = {
 }
 
 [node name="ChosenBattlers" type="Node2D" parent="."]
+
+[node name="Honbat" type="Sprite" parent="."]
+position = Vector2( 448, 384 )
+texture = ExtResource( 9 )
+
+[node name="Dustbunny" type="Sprite" parent="."]
+position = Vector2( 704, 384 )
+texture = ExtResource( 10 )

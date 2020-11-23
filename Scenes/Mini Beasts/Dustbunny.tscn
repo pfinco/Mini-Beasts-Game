@@ -1,0 +1,20 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Scenes/Actions/Bounce.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/Actions/CottonBomb.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/Battler.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Actions/Headbutt.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Sprites/Dustbunny.png" type="Texture" id=5]
+[ext_resource path="res://Resources/MiniBeasts/DustbunnyStats.tres" type="Resource" id=6]
+
+[node name="Dustbunny" instance=ExtResource( 3 )]
+stats = ExtResource( 6 )
+
+[node name="Sprite" parent="." index="0"]
+texture = ExtResource( 5 )
+
+[node name="Headbutt" parent="MoveList" index="0" instance=ExtResource( 4 )]
+
+[node name="CottonBomb" parent="MoveList" index="1" instance=ExtResource( 2 )]
+
+[node name="Bounce" parent="MoveList" index="2" instance=ExtResource( 1 )]

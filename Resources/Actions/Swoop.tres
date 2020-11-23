@@ -1,0 +1,18 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/ActionStats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+moveName = "Swoop"
+category = "Melee"
+type = 12
+power = 10
+accuracy = -1
+effectChance = 0
+description = "The user dives down at the foe, then pulls them into the air."
+targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( -1, 0 ), Vector2( -2, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( 0, -1 ), Vector2( 0, -2 ), Vector2( 1, 1 ), Vector2( 1, -1 ), Vector2( -1, 1 ), Vector2( -1, -1 ) ]
+target = "One"
+targetTypes = [ "Foe" ]
+kbDirection = Vector2( 0, 0 )
+kbPower = 0

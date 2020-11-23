@@ -68,7 +68,9 @@ func _input(event):
 				elif activeBattler.has_valid_targets(chosenAction):
 					activeBattler.attack_targets(chosenAction)
 					if activeBattler.targetSelector != null:
-						activeBattler.remove_child(activeBattler.targetSelector)
+						var selec = activeBattler.targetSelector
+						activeBattler.remove_child(selec)
+						selec.free()
 						activeBattler.targetSelector = null
 					chosenAction = null
 					change_turn()
@@ -97,7 +99,9 @@ func _input(event):
 					start_attack_phase()
 					activeBattler.remove_selectors()
 					if activeBattler.targetSelector != null:
-						activeBattler.remove_child(activeBattler.targetSelector)
+						var selec = activeBattler.targetSelector
+						activeBattler.remove_child(selec)
+						selec.free()
 						activeBattler.targetSelector = null
 					chosenAction = null
 
