@@ -25,6 +25,7 @@ var map
 var gridPosition = Vector2.ZERO
 var facing = Vector2(1, 1)
 var nameTag
+var targetSelector = null
 
 func _ready():
 	battlerName = stats.name
@@ -56,27 +57,63 @@ func valid_destination():
 		return false
 
 func has_valid_targets(action):
-	for tile in action.targetedTiles:
-		var destination = gridPosition + (tile * facing)
-		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
-			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe" && map[destination.x][destination.y].battler.defeated() == false:
-				return true
+	if action.numTargets == "One":
+		var destination = targetSelector.get_position() / TestMap.TILE_SIZE
+		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size() && destination - gridPosition in action.targetedTiles:
+				if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
+					return true
+	else:
+		for tile in action.targetedTiles:
+			var destination = gridPosition + (tile * facing)
+			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
+				if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
+					return true
 	return false
 
 func mark_targets(action):
 	remove_selectors()
-	for tile in action.targetedTiles:
-		var destination = gridPosition + (tile * facing)
-		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
-			var selector = attackSelector.instance()
-			$AttackSelectors.add_child(selector)
-			selector.set_position(tile * facing * TestMap.TILE_SIZE)
+	if action.numTargets == "One":
+		for tile in action.targetedTiles:
+			var destination = gridPosition + (tile * facing)
+			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
+				var selector = attackSelector.instance()
+				$AttackSelectors.add_child(selector)
+				selector.set_position(tile * facing * TestMap.TILE_SIZE)
+		var selector = attackSelector.instance()
+		targetSelector = selector
+		add_child(selector)
+		selector.anim.play("Valid")
+		selector.set_position(action.targetedTiles[0] * facing * TestMap.TILE_SIZE)
+	else:
+		for tile in action.targetedTiles:
+			var destination = gridPosition + (tile * facing)
+			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
+				var selector = attackSelector.instance()
+				$AttackSelectors.add_child(selector)
+				selector.set_position(tile * facing * TestMap.TILE_SIZE)
 
 func attack_targets(action):
-	for tile in action.targetedTiles:
-		var destination = gridPosition + (tile * facing)
+	if action.numTargets == "All":
+		for tile in action.targetedTiles:
+			var destination = gridPosition + (tile * facing)
+			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
+				if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
+					attack(map[destination.x][destination.y].battler, action)
+					if action.kbPower != 0:
+						deal_knockback(map[destination.x][destination.y].battler, action)
+	elif action.numTargets == "First":
+		for tile in action.targetedTiles:
+			var destination = gridPosition + (tile * facing)
+			if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
+				if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
+					attack(map[destination.x][destination.y].battler, action)
+					if action.kbPower != 0:
+						deal_knockback(map[destination.x][destination.y].battler, action)
+					break
+	elif action.numTargets == "One":
+		var destination = targetSelector.get_position() / TestMap.TILE_SIZE
 		if destination.x >= 0 && destination.x < map.size() && destination.y >= 0 && destination.y < map[0].size():
-			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) == "Foe" && map[destination.x][destination.y].battler.defeated() == false:
+			if map[destination.x][destination.y].battler != null && check_relation(map[destination.x][destination.y].battler) in action.targetTypes && map[destination.x][destination.y].battler.defeated() == false:
 				attack(map[destination.x][destination.y].battler, action)
 				if action.kbPower != 0:
 					deal_knockback(map[destination.x][destination.y].battler, action)
@@ -90,9 +127,16 @@ func remove_selectors():
 func take_damage(amount):
 	animator.play("Damage")
 	hp -= amount
-	if (hp <= 0):
+	if hp <= 0:
 		hp = 0
 		die()
+	nameTag.changeHealth(hp, maxHp)
+
+func heal(amount):
+	animator.play("Heal")
+	hp += amount
+	if hp >= maxHp:
+		hp = maxHp
 	nameTag.changeHealth(hp, maxHp)
 
 func attack(target, action):
@@ -101,11 +145,15 @@ func attack(target, action):
 		if target.def < 1:
 			target.def = 1
 		damage = (action.power * atk) / target.def
+		target.take_damage(damage)
 	elif action.category == "Ranged":
 		if target.rDef < 1:
 			target.rDef = 1
 		damage = (action.power * rAtk) / target.rDef
-	target.take_damage(damage)
+		target.take_damage(damage)
+	elif action.category == "Healing":
+		damage = target.maxHp / action.power
+		target.heal(damage)
 
 func deal_knockback(target, action):
 	for i in range(action.kbPower):

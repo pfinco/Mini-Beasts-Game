@@ -13,5 +13,6 @@ effectChance = 0
 description = "The user absorbs light from the sky for one turn, then fires it on the following turn."
 targetedTiles = [ Vector2( 2, 0 ), Vector2( 3, 0 ), Vector2( 4, 0 ), Vector2( 5, 0 ) ]
 target = "All"
+targetTypes = [ "Foe" ]
 kbDirection = Vector2( 0, 0 )
 kbPower = 0

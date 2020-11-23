@@ -13,5 +13,6 @@ effectChance = 0
 description = "The user slams the foe, sending them flying backwards. Knocks the target(s) backwards."
 targetedTiles = [ Vector2( 1, 1 ), Vector2( 1, 0 ), Vector2( 1, -1 ) ]
 target = "All"
+targetTypes = [ "Foe" ]
 kbDirection = Vector2( 1, 0 )
 kbPower = 2

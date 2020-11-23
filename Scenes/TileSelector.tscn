@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Sprites/BabaaGhost.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/Selector.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/TileSelector.gd" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 0.34902, 0.34902, 1 ) ]
+"values": [ Color( 0.905882, 0.109804, 0.109804, 1 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -30,14 +30,14 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Color( 0.4, 0.733333, 1, 1 ) ]
 }
 
 [node name="TileSelector" type="Position2D"]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0.34902, 0.34902, 1 )
+modulate = Color( 0.4, 0.733333, 1, 1 )
 scale = Vector2( 0.5, 0.5 )
 texture = ExtResource( 1 )
 offset = Vector2( 128, 128 )

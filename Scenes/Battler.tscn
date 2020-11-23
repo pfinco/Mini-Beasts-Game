@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Battler.gd" type="Script" id=2]
 [ext_resource path="res://Sprites/Babaa.png" type="Texture" id=3]
@@ -37,7 +37,21 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id=3]
-resource_name = "Idle"
+resource_name = "Heal"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.211765, 1, 0.298039, 1 ), Color( 0.211765, 1, 0.298039, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
@@ -68,7 +82,8 @@ z_index = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Damage = SubResource( 1 )
 anims/Death = SubResource( 2 )
-anims/Idle = SubResource( 3 )
+anims/Heal = SubResource( 3 )
+anims/Idle = SubResource( 4 )
 
 [node name="MoveList" type="Node2D" parent="."]
 

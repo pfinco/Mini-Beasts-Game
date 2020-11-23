@@ -9,6 +9,7 @@ onready var babaaPre = preload("res://Scenes/Mini Beasts/Babaa.tscn")
 onready var stelluxePre = preload("res://Scenes/Mini Beasts/Stelluxe.tscn")
 onready var sapackPre = preload("res://Scenes/Mini Beasts/Sapack.tscn")
 onready var machirpPre = preload("res://Scenes/Mini Beasts/Machirp.tscn")
+onready var egginPre = preload("res://Scenes/Mini Beasts/Eggin.tscn")
 onready var nameTagPre = preload("res://Scenes/NameTag.tscn")
 onready var turnQueue = $TurnQueue
 onready var nameTags = $NameTags
@@ -22,7 +23,7 @@ var formation = [Vector2(4, 2), Vector2(4, 4), Vector2(9, 2), Vector2(9, 4)]
 func _ready():
 	create_map()
 	add_battler(babaaPre, team1, 0)
-	add_battler(stelluxePre, team1, 1)
+	add_battler(egginPre, team1, 1)
 	add_battler(sapackPre, team2, 2)
 	add_battler(machirpPre, team2, 3)
 	turnQueue.start(self)

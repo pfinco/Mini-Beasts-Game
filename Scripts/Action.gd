@@ -9,6 +9,7 @@ var effectChance
 var description
 var targetedTiles
 var numTargets
+var targetTypes
 var kbPower
 var kbDirection
 
@@ -23,5 +24,10 @@ func _ready():
 	effectChance = stats.effectChance
 	description = stats.description
 	targetedTiles = stats.targetedTiles
+	numTargets = stats.target
+	targetTypes = stats.targetTypes
 	kbPower = stats.kbPower
 	kbDirection = stats.kbDirection
+
+func effect(user, target):
+	pass

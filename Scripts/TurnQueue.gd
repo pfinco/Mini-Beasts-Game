@@ -67,21 +67,40 @@ func _input(event):
 						menu.queue_free()
 				elif activeBattler.has_valid_targets(chosenAction):
 					activeBattler.attack_targets(chosenAction)
+					if activeBattler.targetSelector != null:
+						activeBattler.remove_child(activeBattler.targetSelector)
+						activeBattler.targetSelector = null
 					chosenAction = null
 					change_turn()
 			elif event.is_action_pressed("ui_left"):
 				if chosenAction != null:
-					activeBattler.facing = Vector2(-1, 1)
-					activeBattler.mark_targets(chosenAction)
+					if activeBattler.targetSelector == null:
+						activeBattler.facing = Vector2(-1, 1)
+						activeBattler.mark_targets(chosenAction)
+					else:
+						move_selector(event, activeBattler.targetSelector)
 			elif event.is_action_pressed("ui_right"):
 				if chosenAction != null:
-					activeBattler.facing = Vector2(1, 1)
-					activeBattler.mark_targets(chosenAction)
+					if activeBattler.targetSelector == null:
+						activeBattler.facing = Vector2(1, 1)
+						activeBattler.mark_targets(chosenAction)
+					else:
+						move_selector(event, activeBattler.targetSelector)
+			elif event.is_action_pressed("ui_down"):
+				if chosenAction != null && activeBattler.targetSelector != null:
+					move_selector(event, activeBattler.targetSelector)
+			elif event.is_action_pressed("ui_up"):
+				if chosenAction != null && activeBattler.targetSelector != null:
+					move_selector(event, activeBattler.targetSelector)
 			elif event.is_action_pressed("ui_back"):
 				if chosenAction != null:
 					start_attack_phase()
 					activeBattler.remove_selectors()
+					if activeBattler.targetSelector != null:
+						activeBattler.remove_child(activeBattler.targetSelector)
+						activeBattler.targetSelector = null
 					chosenAction = null
+
 
 func move_selector(event, selector):
 	if (event.is_action_pressed("ui_left") && selector.get_position().x > 0):
