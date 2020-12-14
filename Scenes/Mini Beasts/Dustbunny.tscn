@@ -4,7 +4,7 @@
 [ext_resource path="res://Scenes/Actions/CottonBomb.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Battler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Actions/Headbutt.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Sprites/Dustbunny.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/MiniBeasts/Dustbunny.png" type="Texture" id=5]
 [ext_resource path="res://Resources/MiniBeasts/DustbunnyStats.tres" type="Resource" id=6]
 
 [node name="Dustbunny" instance=ExtResource( 3 )]

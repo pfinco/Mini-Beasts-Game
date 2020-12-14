@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Battler.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Resources/MiniBeasts/HonbatStats.tres" type="Resource" id=4]
 [ext_resource path="res://Scenes/Actions/Screech.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Sprites/Honbat.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/MiniBeasts/Honbat.png" type="Texture" id=6]
 
 [node name="Honbat" instance=ExtResource( 3 )]
 stats = ExtResource( 4 )

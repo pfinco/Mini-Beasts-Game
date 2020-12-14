@@ -3,6 +3,8 @@
 [ext_resource path="res://Sprites/Selector.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/TileSelector.gd" type="Script" id=2]
 
+
+
 [sub_resource type="Animation" id=1]
 resource_name = "Invalid"
 tracks/0/type = "value"

@@ -13,6 +13,6 @@ effectChance = 0
 description = "The user breathes a cloud of freezing air at the foe."
 targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 3, 0 ) ]
 target = "All"
-targetTypes = [ "Foe" ]
+targetTypes = [  ]
 kbDirection = Vector2( 0, 0 )
 kbPower = 0

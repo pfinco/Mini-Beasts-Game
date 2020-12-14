@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Actions/SunBeam.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Actions/LeafBarrage.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Actions/WoodClub.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sprites/Sapack.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/MiniBeasts/Sapack.png" type="Texture" id=7]
 
 [node name="Sapack" instance=ExtResource( 1 )]
 stats = ExtResource( 3 )

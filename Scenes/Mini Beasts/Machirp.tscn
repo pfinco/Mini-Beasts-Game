@@ -6,7 +6,7 @@
 [ext_resource path="res://Scenes/Actions/SignalFlare.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Actions/FlameBurst.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Actions/FeatherBomb.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sprites/Machirp.png" type="Texture" id=7]
+[ext_resource path="res://Sprites/MiniBeasts/Machirp.png" type="Texture" id=7]
 
 [node name="Machirp" instance=ExtResource( 1 )]
 stats = ExtResource( 3 )

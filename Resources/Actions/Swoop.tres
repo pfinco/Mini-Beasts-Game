@@ -13,6 +13,6 @@ effectChance = 0
 description = "The user dives down at the foe, then pulls them into the air."
 targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( -1, 0 ), Vector2( -2, 0 ), Vector2( 0, 1 ), Vector2( 0, 2 ), Vector2( 0, -1 ), Vector2( 0, -2 ), Vector2( 1, 1 ), Vector2( 1, -1 ), Vector2( -1, 1 ), Vector2( -1, -1 ) ]
 target = "One"
-targetTypes = [ "Foe" ]
+targetTypes = [  ]
 kbDirection = Vector2( 0, 0 )
 kbPower = 0

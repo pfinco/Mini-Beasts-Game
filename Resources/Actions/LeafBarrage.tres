@@ -13,6 +13,6 @@ effectChance = 0
 description = "The user hurls a bunch of sharp leaves at the foe."
 targetedTiles = [ Vector2( 1, 0 ), Vector2( 2, 0 ), Vector2( 1, 1 ), Vector2( 2, 1 ), Vector2( 1, -1 ), Vector2( 2, -1 ) ]
 target = "All"
-targetTypes = [ "Foe" ]
+targetTypes = [  ]
 kbDirection = Vector2( 0, 0 )
 kbPower = 0

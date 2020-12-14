@@ -17,6 +17,7 @@ var rDef
 
 var battlerName = "Babaa"
 var team
+var turnsTaken = 0
 
 var type1 = Game.battlerTypes.plain
 var type2 = Game.battlerTypes.plain

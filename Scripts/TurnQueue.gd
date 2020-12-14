@@ -5,6 +5,7 @@ var activeBattler
 var phase
 var menu
 var chosenAction
+var roundsPassed = 0
 
 onready var gameOverPre = preload("res://Scenes/BattleEndPlaceholder.tscn")
 onready var actionMenuPre = preload("res://Scenes/ActionMenu.tscn")
@@ -29,11 +30,36 @@ func _process(_delta):
 		go.set_global_position(Vector2.ZERO)
 
 func change_turn():
-	var newIndex = (activeBattler.get_index() + 1) % get_child_count()
-	activeBattler = get_child(newIndex)
+	activeBattler.turnsTaken += 1
+	if end_of_round():
+		roundsPassed += 1
+	activeBattler = get_next_battler()
 	phase = phases.move
 	if activeBattler.defeated():
 		change_turn()
+
+# Gets the next logical, unacted battler in order of mobility
+func get_next_battler():
+	var next_battler = get_unacted_battler()
+	for battler in get_children():
+		if battler.mob > next_battler.mob && battler.turnsTaken <= roundsPassed:
+			next_battler = battler;
+	return next_battler
+
+# Gets a battler that has not acted this round
+func get_unacted_battler():
+	for battler in get_children():
+		if battler.turnsTaken <= roundsPassed:
+			return battler
+	push_error("No unacted battlers found, undealt with error")
+
+# Checks whether or not a round has passed
+func end_of_round():
+	var checker = get_child((activeBattler.get_index() + 1) % get_child_count()) 
+	for battler in get_children():
+		if checker.turnsTaken != battler.turnsTaken:
+			return false
+	return true
 
 func start_attack_phase():
 	phase = phases.action
@@ -104,7 +130,6 @@ func _input(event):
 						selec.free()
 						activeBattler.targetSelector = null
 					chosenAction = null
-
 
 func move_selector(event, selector):
 	if (event.is_action_pressed("ui_left") && selector.get_position().x > 0):

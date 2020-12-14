@@ -1,15 +1,15 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Sprites/Babaa.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/MiniBeasts/Babaa.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/Selector.png" type="Texture" id=2]
-[ext_resource path="res://Sprites/Machirp.png" type="Texture" id=3]
-[ext_resource path="res://Sprites/Eggin.png" type="Texture" id=4]
-[ext_resource path="res://Sprites/Stelluxe.png" type="Texture" id=5]
-[ext_resource path="res://Sprites/Sapack.png" type="Texture" id=6]
+[ext_resource path="res://Sprites/MiniBeasts/Machirp.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/MiniBeasts/Eggin.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/MiniBeasts/Stelluxe.png" type="Texture" id=5]
+[ext_resource path="res://Sprites/MiniBeasts/Sapack.png" type="Texture" id=6]
 [ext_resource path="res://Scripts/BattlerSelect.gd" type="Script" id=7]
 [ext_resource path="res://Fonts/Finkwell.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Sprites/Honbat.png" type="Texture" id=9]
-[ext_resource path="res://Sprites/Dustbunny.png" type="Texture" id=10]
+[ext_resource path="res://Sprites/MiniBeasts/Honbat.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/MiniBeasts/Dustbunny.png" type="Texture" id=10]
 
 [node name="BattlerSelect" type="Node2D"]
 script = ExtResource( 7 )
