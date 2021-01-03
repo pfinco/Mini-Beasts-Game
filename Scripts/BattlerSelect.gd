@@ -28,6 +28,7 @@ func _ready():
 	battlerList[1].append(dustbunnyPre)
 
 func _input(event):
+	# Move the selector
 	if event.is_action_pressed("ui_left") && selectedBattler.x > 0:
 		selectedBattler.x -= 1
 		selector.position.x -= 256
@@ -40,32 +41,41 @@ func _input(event):
 	elif event.is_action_pressed("ui_down") && selectedBattler.y < battlerList.size() - 1 && selectedBattler.x <= battlerList[selectedBattler.y + 1].size() - 1:
 		selectedBattler.y += 1
 		selector.position.y += 256
+
+	# Add the battler the selector is on to a team
 	elif event.is_action_pressed("ui_accept"):
 		if team1.size() < 3:
+			# If team one is not full, add the selected battler to team one
 			team1.append(battlerList[selectedBattler.y][selectedBattler.x])
 			var battler = battlerList[selectedBattler.y][selectedBattler.x].instance()
 			$ChosenBattlers.add_child(battler)
 			battler.position = Vector2(0, (team1.size()) * Game.TILE_SIZE)
 			$Team1.get_child(team1.size() - 1).text = battler.battlerName
 		elif team2.size() < 3:
+			# If team one is full and team two is not, add the selected battler to team two
 			team2.append(battlerList[selectedBattler.y][selectedBattler.x])
 			var battler = battlerList[selectedBattler.y][selectedBattler.x].instance()
 			$ChosenBattlers.add_child(battler)
 			battler.position = Vector2(1792, (team2.size()) * Game.TILE_SIZE)
 			$Team2.get_child(team2.size() - 1).text = battler.battlerName
 		elif team2.size() >= 3:
+			# If both teams are full, create a battle map with the teams
 			for b in team1:
 				Game.party.append(b)
 			for b in team2:
 				Game.foes.append(b)
 			get_tree().change_scene("res://Scenes/Map.tscn")
+			
+	# Deselect the most recently selected battler
 	elif event.is_action_pressed("ui_back"):
 		if team2.size() >= 1:
+			# If team two has battlers, remove the most recent battler from team two
 			var index = team2.size() - 1
 			team2.remove(index)
 			$ChosenBattlers.remove_child($ChosenBattlers.get_child(index + 3))
 			$Team2.get_child(index).text = ""
 		elif team1.size() >= 1:
+			# If team two has no battlers and team one does, remove the most recent battler from team one
 			var index = team1.size() - 1
 			team1.remove(index)
 			$ChosenBattlers.remove_child($ChosenBattlers.get_child(index))

@@ -4,9 +4,6 @@
 [ext_resource path="res://Sprites/Terrain/PlainTerrain.png" type="Texture" id=2]
 [ext_resource path="res://Scripts/Sprite.gd" type="Script" id=3]
 
-
-
-
 [node name="Tile" type="Position2D"]
 scale = Vector2( 2, 2 )
 script = ExtResource( 1 )

@@ -9,6 +9,7 @@ var battler
 func _ready():
 	type =  Game.terrainTypes.plain
 
+# Changes the type of the tile
 func convertTile(newType):
 	if type != newType:
 		prevType = type

@@ -26,6 +26,7 @@ func _ready():
 		index += 1
 	turnQueue.start(self)
 
+# Creates a new map
 func create_map():
 	for x in range(width):
 		map.append([])
@@ -41,21 +42,24 @@ func create_map():
 			if randi() % 15 == 1:
 				newTile.convertTile(Game.terrainTypes.water)
 
+# Adds a battler to the map
 func add_battler(battler, team, index):
 
 		var newBattler = battler.instance()
-		
+		# Places the battler on the map at the next location in the battle formation
 		newBattler.map = map
 		newBattler.gridPosition = formation[index]
 		newBattler.position = formation[index] * Game.TILE_SIZE
-
 		map[formation[index].x][formation[index].y].battler = newBattler
+		# Adds the battler to the turn queue
 		turnQueue.add_child(newBattler)
+		# Creates a name tag and health bar for the battler
 		var tag = nameTagPre.instance()
 		nameTags.add_child(tag)
 		newBattler.nameTag = tag
 		tag.changeName(newBattler.battlerName)
 		tag.changeHealth(newBattler.hp, newBattler.maxHp)
+		# Assigns the battler to the given team
 		team.append(newBattler)
 		if team == team1:
 			newBattler.team = 1

@@ -17,18 +17,21 @@ var phases = {
 	"end" : 3
 }
 
+# Initializes the turn queue
 func start(newMap):
 	map = newMap
 	activeBattler = get_child(0)
 	phase = phases.move
 
 func _process(_delta):
+	# Ends the battle if one of the teams has no remaining battlers
 	if is_team_defeated(map.team1) || is_team_defeated(map.team2) && phase != phases.end:
 		phase = phases.end
 		var go = gameOverPre.instance()
 		map.add_child(go)
 		go.set_global_position(Vector2.ZERO)
 
+# Changes the active battler
 func change_turn():
 	activeBattler.turnsTaken += 1
 	if end_of_round():
@@ -61,6 +64,7 @@ func end_of_round():
 			return false
 	return true
 
+# Pulls up the attack menu for a battler
 func start_attack_phase():
 	phase = phases.action
 	var actionMenu = actionMenuPre.instance()
@@ -71,9 +75,11 @@ func start_attack_phase():
 func _input(event):
 	match phase:
 		phases.move:
+			# Moves battler to the current selected tile if possible
 			if event.is_action_pressed("ui_accept") && activeBattler.valid_destination():
 				activeBattler.move()
 				start_attack_phase()
+			# Moves the selector
 			else:
 				move_selector(event, activeBattler.tileSelector)
 				if activeBattler.valid_destination():
@@ -83,15 +89,18 @@ func _input(event):
 		phases.action:
 			if event.is_action_pressed("ui_accept"):
 				if chosenAction == null:
+					# Pass turn if the last menu option is chosen
 					if menu.selectedAction == menu.get_child_count() - 1:
 						change_turn()
 						menu.queue_free()
 					else:
+						# Mark the tiles in the attack range of the chosen attack
 						activeBattler.facing = Vector2(1, 1)
 						chosenAction = activeBattler.moveList[menu.selectedAction]
 						activeBattler.mark_targets(chosenAction)
 						menu.queue_free()
 				elif activeBattler.has_valid_targets(chosenAction):
+					# Attack the chosen target in range and change turns
 					activeBattler.attack_targets(chosenAction)
 					if activeBattler.targetSelector != null:
 						var selec = activeBattler.targetSelector
@@ -100,6 +109,8 @@ func _input(event):
 						activeBattler.targetSelector = null
 					chosenAction = null
 					change_turn()
+			
+			# Change the direction a battler is facing
 			elif event.is_action_pressed("ui_left"):
 				if chosenAction != null:
 					if activeBattler.targetSelector == null:
@@ -114,12 +125,16 @@ func _input(event):
 						activeBattler.mark_targets(chosenAction)
 					else:
 						move_selector(event, activeBattler.targetSelector)
+			
+			# Navigate the attack menu
 			elif event.is_action_pressed("ui_down"):
 				if chosenAction != null && activeBattler.targetSelector != null:
 					move_selector(event, activeBattler.targetSelector)
 			elif event.is_action_pressed("ui_up"):
 				if chosenAction != null && activeBattler.targetSelector != null:
 					move_selector(event, activeBattler.targetSelector)
+			
+			# Return to previous menu
 			elif event.is_action_pressed("ui_back"):
 				if chosenAction != null:
 					start_attack_phase()
@@ -131,6 +146,7 @@ func _input(event):
 						activeBattler.targetSelector = null
 					chosenAction = null
 
+# Move the tile selector of a battler
 func move_selector(event, selector):
 	if (event.is_action_pressed("ui_left") && selector.get_position().x > 0):
 		selector.move(Vector2(-1, 0))
@@ -141,6 +157,7 @@ func move_selector(event, selector):
 	elif (event.is_action_pressed("ui_down") && selector.get_position().y < (map.height - 1) * 128):
 		selector.move(Vector2(0, 1))
 
+# Checks if a team has any remaining battlers
 func is_team_defeated(team):
 	for battler in team:
 		if battler.defeated() == false:

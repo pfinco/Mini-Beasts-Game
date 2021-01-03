@@ -3,6 +3,7 @@ extends Node2D
 onready var itemPre = preload("res://Scenes/ActionMenuItem.tscn")
 var selectedAction
 
+# Populates the action list with the given actions
 func populateList(actions):
 	for action in actions:
 		var item = itemPre.instance()

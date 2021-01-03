@@ -13,6 +13,6 @@ effectChance = 0
 description = "The user pelts the foe with cotton-like fur or down."
 targetedTiles = [ Vector2( 2, 0 ), Vector2( 1, 1 ), Vector2( 1, -1 ), Vector2( 3, 1 ), Vector2( 3, -1 ) ]
 target = "All"
-targetTypes = [  ]
+targetTypes = [ "Foe" ]
 kbDirection = Vector2( 0, 0 )
 kbPower = 0
